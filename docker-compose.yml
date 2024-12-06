@@ -26,12 +26,17 @@ services:
     init: true
     restart: always
     ports:
+<<<<<<< HEAD
       - target: 3333
         published: 3333
         protocol: tcp
         mode: host
       - target: 8080
         published: 3380
+=======
+      - target: 8421
+        published: 8421
+>>>>>>> 0d48ebd47a28a887868ea3093e675e95f3843561
         protocol: tcp
         mode: host
     secrets:
