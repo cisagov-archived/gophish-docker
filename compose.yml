@@ -1,5 +1,11 @@
 ---
+<<<<<<< HEAD:docker-compose.yml
 version: "3.7"
+=======
+# This Docker composition file is used to build and test the container
+
+name: skeleton-docker
+>>>>>>> eafe720594319b9503bd5e6d7e5b59e61ff9d6d5:compose.yml
 
 secrets:
   config_json:
@@ -22,6 +28,7 @@ services:
         - VERSION=0.0.8
       context: .
       dockerfile: Dockerfile
+<<<<<<< HEAD:docker-compose.yml
     image: cisagov/gophish
     init: true
     restart: always
@@ -37,9 +44,20 @@ services:
       - target: 8421
         published: 8421
 >>>>>>> 0d48ebd47a28a887868ea3093e675e95f3843561
+=======
+    environment:
+      - ECHO_MESSAGE=Hello World from docker compose!
+    image: cisagov/example
+    init: true
+    ports:
+      - mode: host
+>>>>>>> eafe720594319b9503bd5e6d7e5b59e61ff9d6d5:compose.yml
         protocol: tcp
-        mode: host
+        published: "8421"
+        target: 8421
+    restart: "no"
     secrets:
+<<<<<<< HEAD:docker-compose.yml
       - source: config_json
         target: config.json
       - source: admin_fullchain_pem
@@ -50,3 +68,14 @@ services:
         target: phish_fullchain.pem
       - source: phish_privkey_pem
         target: phish_privkey.pem
+=======
+      - source: quote_txt
+        target: quote.txt
+
+  example-version:
+    # Run the container to collect version information
+    command: --version
+    image: cisagov/example
+    init: true
+    restart: "no"
+>>>>>>> eafe720594319b9503bd5e6d7e5b59e61ff9d6d5:compose.yml

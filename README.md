@@ -29,11 +29,11 @@ docker run cisagov/example:0.2.0
 
 ### Running with Docker Compose ###
 
-1. Create a `docker-compose.yml` file similar to the one below to use [Docker Compose](https://docs.docker.com/compose/).
+1. Create a `compose.yml` file similar to the one below to use [Docker Compose](https://docs.docker.com/compose/).
 
     ```yaml
     ---
-    version: "3.7"
+    name: skeleton-docker
 
     services:
 <<<<<<< HEAD
@@ -41,13 +41,9 @@ docker run cisagov/example:0.2.0
         image: cisagov/gophish:0.0.8
 =======
       example:
-        image: cisagov/example:0.2.0
-        volumes:
-          - type: bind
-            source: <your_log_dir>
-            target: /var/log
         environment:
           - ECHO_MESSAGE="Hello from docker compose"
+<<<<<<< HEAD
 >>>>>>> 0d48ebd47a28a887868ea3093e675e95f3843561
         ports:
           - target: 3333
@@ -58,6 +54,17 @@ docker run cisagov/example:0.2.0
             published: 3380
             protocol: tcp
             mode: host
+=======
+        image: cisagov/example:0.2.0
+        ports:
+          - protocol: tcp
+            published: "8080"
+            target: 8080
+        volumes:
+          - source: <your_log_dir>
+            target: /var/log
+            type: bind
+>>>>>>> eafe720594319b9503bd5e6d7e5b59e61ff9d6d5
     ```
 
 1. Start the container and detach:
@@ -74,13 +81,23 @@ values like your credentials can be more secure using secrets than using
 environment variables.  See the
 [secrets](#secrets) section below for a table of all supported secret files.
 
+<<<<<<< HEAD
 1. To use secrets, create a file or files containing the values you
    want set.
 1. Then add the secret or secrets to your `docker-compose.yml` file:
+=======
+1. To use secrets, create a `quote.txt` file containing the values you want set:
+
+    ```text
+    Better lock it in your pocket.
+    ```
+
+1. Then add the secret to your `compose.yml` file:
+>>>>>>> eafe720594319b9503bd5e6d7e5b59e61ff9d6d5
 
     ```yaml
     ---
-    version: "3.7"
+    name: skeleton-docker
 
     secrets:
       config_json:
@@ -100,13 +117,9 @@ environment variables.  See the
         image: cisagov/gophish:0.0.8
 =======
       example:
-        image: cisagov/example:0.2.0
-        volumes:
-          - type: bind
-            source: <your_log_dir>
-            target: /var/log
         environment:
           - ECHO_MESSAGE="Hello from docker compose"
+<<<<<<< HEAD
 >>>>>>> 0d48ebd47a28a887868ea3093e675e95f3843561
         ports:
           - target: 3333
@@ -128,6 +141,20 @@ environment variables.  See the
             target: phish_fullchain.pem
           - source: phish_privkey_pem
             target: phish_privkey.pem
+=======
+        image: cisagov/example:0.2.0
+        ports:
+          - protocol: tcp
+            published: "8080"
+            target: 8080
+        secrets:
+          - source: quote_txt
+            target: quote.txt
+        volumes:
+          - source: <your_log_dir>
+            target: /var/log
+            type: bind
+>>>>>>> eafe720594319b9503bd5e6d7e5b59e61ff9d6d5
     ```
 
 ## Updating your container ##
@@ -191,9 +218,9 @@ If you want to add or remove dependencies you would update the `src/Pipfile` fil
 and then update dependencies as you would above.
 
 > [!NOTE]
-> You should only specify packages that are explicitly needed for your Docker
-> configuration. Allow [Pipenv] to manage the dependencies of the specified
-> packages.
+> You should only specify packages that are direct requirements of
+> your Docker configuration. Allow [Pipenv] to manage the dependencies
+> of the specified packages.
 
 ## Image tags ##
 
@@ -244,8 +271,13 @@ The following ports are exposed by this container:
 | 3333 | Admin server |
 | 8080 | Phishing server |
 
+<<<<<<< HEAD
 The sample [Docker composition](docker-compose.yml) publishes the
 exposed ports at 3333 and 3380, respectively.
+=======
+The sample [Docker composition](compose.yml) publishes the
+exposed port at 8080.
+>>>>>>> eafe720594319b9503bd5e6d7e5b59e61ff9d6d5
 
 ## Environment variables ##
 
